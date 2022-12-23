@@ -66,16 +66,15 @@ class App(QWidget):
 
     def on_click(self):
         prompt = self.input_box.text()
-        prompts.append(f"{prompt} Genera e inventa lo que no conozcas.")
+        prompts.append(prompt)
         full_prompt = " ".join(prompts)
 
-        if len(full_prompt) >= length:
+        while len(full_prompt) >= length:
             prompts.pop(0)
-            prompts.pop(1)
 
         response = openai.Completion.create(
             model="text-davinci-003",
-            prompt=full_prompt,
+            prompt=f"{full_prompt}. Genera e inventa lo que no conozcas.",
             max_tokens=length,
             temperature=temperature
         )
